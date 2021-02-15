@@ -1,0 +1,17 @@
+This program is a simple race timer written in nodejs.  It is designed to run on
+a system that is connected to the "finish line" of a race track, however it can
+really run anywhere.
+
+Accessing the timer.html file will allow you to control the timer from a
+browser.  Accessing the screen.html will show the timer.  This can be used to
+view the time from multiple external sources.
+
+While this program was designed to run completly from a Raspberry PI, in can
+really run anywhere.
+
+To start the timer connect to "http://timer.name/start". To stop the timer
+connect to "http://timer.name/stop".  And to reset the timer, conent to
+"http://timer.name/reset".
+
+Please note that there is no security built in so use this only within trusted
+environments.

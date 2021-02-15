@@ -1,0 +1,12 @@
+INSTALL
+Steps
+1) download files and install into directory accessible by a web server.
+2) include the 'ws' library with npm. 'npm install ws'
+3) run server 'node server.js >./racetimer.log & '
+  a) add a -i intf to tell node which interface to bind to.
+     eg 'node server.js -i eth0'
+4) run webserver and point to install directory.
+
+NOTES
+a) the http://name.dom/timer.html will allow you to test from browser.
+b) the http://name.dom/screen.html will just show the timer.

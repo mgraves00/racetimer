@@ -1,0 +1,66 @@
+<html>
+<header>
+<title>Race Timer</title>
+<link href="timer.css" rel="stylesheet" type="text/css" media="all">
+</header>
+<body>
+<div id="head">Race Timer</div>
+<div id="timer">00:00.000</div>
+</body>
+<script>
+const elm = document.getElementById('timer');
+const ws = new WebSocket("ws://"+location.host+":8080");
+ws.onmessage = function(msg) {
+//	console.log('got message ' + msg.data);
+	displayTime(msg.data);
+};
+ws.onopen = function(e) {
+	console.log('ws open');
+};
+ws.onclose = function(event) {
+	console.log('ws close '+event.wasClean);
+}
+ws.onerror = function(err) {
+	console.log('ws error '+err.message);
+}
+
+function startTimer() {
+	xhr = new XMLHttpRequest();
+	xhr.open("GET", "http://"+location.host+":3000/start");
+	xhr.send();
+}
+function stopTimer() {
+	xhr = new XMLHttpRequest();
+	xhr.open("GET", "http://"+location.host+":3000/stop");
+	xhr.send();
+}
+function resetTimer() {
+	xhr = new XMLHttpRequest();
+	xhr.open("GET", "http://"+location.host+":3000/reset");
+	xhr.send();
+}
+function pad(val) {
+	if (val.toString().length >= 2) {
+		return(val);
+	}
+	return("0"+val.toString());
+}
+function pad3(val) {
+	var l = val.toString().length;
+	if (l >= 3) {
+		return(val)
+	} else if (l >= 2) {
+		return("0"+val.toString())
+	}
+	return("00"+val.toString())
+}
+function displayTime(time = 0) {
+	var min = Math.floor(time / (1000 * 60));
+	time = time - (min*1000*60);
+	var sec = Math.floor(time / 1000);
+	time = time - (sec*1000);
+//	var nth = Math.floor(time / 100);
+	elm.innerHTML = pad(min) + ":" + pad(sec) + "." + pad3(time);
+}
+</script>
+</html>
