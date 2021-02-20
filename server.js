@@ -54,20 +54,24 @@ function getIPaddress(i) {
 }
 
 function startRaceTimer() {
-	if (stime == 0) {
-		d = new Date();
-		stime = d.getTime();
+	if (run == false) {
+		if (stime == 0) {
+			d = new Date();
+			stime = d.getTime();
+			run = true;
+			sendUpdateObj = setInterval(sendUpdate, inc);
+		}
 	}
-	run = true;
-	sendUpdateObj = setInterval(sendUpdate, inc);
 }
 
 function stopRaceTimer() {
-	d = new Date();
-	etime = d.getTime()
-	run = false;
-	clearInterval(sendUpdateObj);
-	sendUpdateObj = null;
+	if (run == true) {
+		d = new Date();
+		etime = d.getTime()
+		run = false;
+		clearInterval(sendUpdateObj);
+		sendUpdateObj = null;
+	}
 }
 
 function resetRaceTimer() {
